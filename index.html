@@ -217,7 +217,7 @@
 											<tr>
 												<td nowrap="">
 													<font size="2">
-														<div id="UserName">a054</div>
+														<div id="UserName"></div>
 													</font>
 												</td>
 											</tr>
@@ -260,21 +260,41 @@
 		<tbody>
 			<tr>
 				<td>
-					<font size="2">DateTime:</font>
+					<font size="2" id="text"></font>
 				</td>
 
 			</tr>
 		</tbody>
 	</table>
 	<script type="text/javascript">
+		
+		function showTime() {
+			var now = new Date();
+			console.log(now);
+			var nowyear = now.getFullYear();
+			var nowmonth = now.getMonth();
+			var nowdate = now.getDate();
+			var nowhour = now.getHours();
+			var nowminutes = now.getMinutes();
+			var nowseconds = now.getSeconds();
+
+			var text = "DateTime:  " +nowyear + "/" + nowmonth+1 + "/" + nowdate + " " + nowhour + ":" + nowminutes + ":" + nowseconds;
+
+			return text;
+		}
+
 		window.addEventListener('DOMContentLoaded', function () {
 
 			fetch('https://ipinfo.io?callback')
 				.then(res => res.json())
 				.then(json => {
-					document.getElementById("ip").innerHTML = json.ip;
+					var ipad = json.ip;
+					document.getElementById("ip").innerHTML = ipad;
+					document.getElementById("UserName").innerHTML = "a" + ipad.split(".")[0];	
 					console.log(json.ip);
 				});
+			document.getElementById("text").innerHTML = showTime();
+
 
 		})
 	</script>
